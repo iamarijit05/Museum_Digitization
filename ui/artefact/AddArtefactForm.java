@@ -1,16 +1,27 @@
 package ui.artefact;
+
 import java.awt.GridLayout;
-import java.awt.TextArea;
+import java.util.HashMap;
+import java.util.Map;
 
 import javax.swing.*;
 
+import dao.ArtefactDAO;
 import model.Artefact;
 import service.ArtefactService;
 
 public class AddArtefactForm extends JFrame {
-    private JTextField nameField, materialField, categoryField, periodField, regionField;
 
+    private JTextField nameField, materialField;
     private JTextArea descriptionArea;
+
+    private JComboBox<String> categoryBox, periodBox, regionBox;
+
+    // 🔥 maps to store name → id
+    private Map<String, Integer> categoryMap = new HashMap<>();
+    private Map<String, Integer> periodMap = new HashMap<>();
+    private Map<String, Integer> regionMap = new HashMap<>();
+
     public AddArtefactForm() {
         setTitle("Add Artefact");
         setSize(400, 450);
@@ -28,41 +39,72 @@ public class AddArtefactForm extends JFrame {
         descriptionArea = new JTextArea();
         add(new JScrollPane(descriptionArea));
 
-        add(new JLabel("Category ID:"));
-        categoryField = new JTextField();
-        add(categoryField);
+        // 🔥 CATEGORY DROPDOWN
+        add(new JLabel("Category:"));
+        categoryBox = new JComboBox<>();
+        add(categoryBox);
 
-        add(new JLabel("Period ID:"));
-        periodField = new JTextField();
-        add(periodField);
+        // 🔥 PERIOD DROPDOWN
+        add(new JLabel("Period:"));
+        periodBox = new JComboBox<>();
+        add(periodBox);
 
-        add(new JLabel("Region ID:"));
-        regionField = new JTextField();
-        add(regionField);
+        // 🔥 REGION DROPDOWN
+        add(new JLabel("Region:"));
+        regionBox = new JComboBox<>();
+        add(regionBox);
 
         JButton submitBtn = new JButton("Add Artefact");
         add(submitBtn);
 
         submitBtn.addActionListener(e -> addArtefact());
 
+        loadDropdownData(); // 🔥 important
+
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         setVisible(true);
     }
 
+    // 🔥 LOAD DATA FROM DB
+    private void loadDropdownData() {
+        ArtefactDAO dao = new ArtefactDAO();
+
+        categoryMap = dao.getCategories();
+        for (String name : categoryMap.keySet()) {
+            categoryBox.addItem(name);
+        }
+
+        periodMap = dao.getPeriods();
+        for (String name : periodMap.keySet()) {
+            periodBox.addItem(name);
+        }
+
+        regionMap = dao.getRegions();
+        for (String name : regionMap.keySet()) {
+            regionBox.addItem(name);
+        }
+    }
+
     public void addArtefact() {
         try {
-            if(nameField.getText().trim().isEmpty()) {
+            if (nameField.getText().trim().isEmpty()) {
                 throw new RuntimeException("Name Cannot be Empty");
             }
+
             Artefact a = new Artefact();
 
             a.setName(nameField.getText());
             a.setMaterial(materialField.getText());
             a.setDescription(descriptionArea.getText());
 
-            int categoryId = Integer.parseInt(categoryField.getText());
-            int periodId = Integer.parseInt(periodField.getText());
-            int regionId = Integer.parseInt(regionField.getText());
+            // 🔥 GET SELECTED VALUES
+            String cat = (String) categoryBox.getSelectedItem();
+            String per = (String) periodBox.getSelectedItem();
+            String reg = (String) regionBox.getSelectedItem();
+
+            int categoryId = categoryMap.get(cat);
+            int periodId = periodMap.get(per);
+            int regionId = regionMap.get(reg);
 
             a.setCategory_id(categoryId);
             a.setPeriod_id(periodId);
@@ -73,16 +115,13 @@ public class AddArtefactForm extends JFrame {
 
             JOptionPane.showMessageDialog(this, "Artefact added successfully!");
 
+            // 🔄 reset
             nameField.setText("");
             materialField.setText("");
             descriptionArea.setText("");
-            categoryField.setText("");
-            periodField.setText("");
-            regionField.setText("");
-        } catch(NumberFormatException e) {
-            JOptionPane.showMessageDialog(this, "ID Must Be Numbers!");
-        } catch(Exception ex) {
-            JOptionPane.showMessageDialog(this, ex);
+
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(this, ex.getMessage());
         }
     }
 }

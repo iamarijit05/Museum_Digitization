@@ -3,15 +3,18 @@ package dao;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.HashMap;
+import java.util.Map;
 
 import model.Artefact;
 import db.DBConnection;
 
 public class ArtefactDAO {
 
-    // used for data insertion
+    // INSERT
     public void addArtefact(Artefact artefact) {
         try {
             Connection con = DBConnection.getConnection();
@@ -19,7 +22,7 @@ public class ArtefactDAO {
             String sql = "INSERT INTO artefact(name, material, description, discovered_year, image_path, category_id, period_id, region_id) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
 
             PreparedStatement ps = con.prepareStatement(sql);
-            //System.out.println("DAO METHOD CALLED");
+
             ps.setString(1, artefact.getName());
             ps.setString(2, artefact.getMaterial());
             ps.setString(3, artefact.getDescription());
@@ -31,17 +34,20 @@ public class ArtefactDAO {
 
             ps.executeUpdate();
             System.out.println("Data Inserted Successfully");
+
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
-    // fetch all data from db.
+    //  FETCH ALL
     public List<Artefact> getAllArtefacts() {
         List<Artefact> list = new ArrayList<>();
+
         try {
             Connection con = DBConnection.getConnection();
             String sql = "SELECT * FROM artefact";
+
             PreparedStatement ps = con.prepareStatement(sql);
             ResultSet rs = ps.executeQuery();
 
@@ -55,25 +61,28 @@ public class ArtefactDAO {
                         rs.getInt("category_id"),
                         rs.getInt("discovered_year"),
                         rs.getInt("period_id"),
-                        rs.getInt("region_id"));
+                        rs.getInt("region_id")
+                );
                 list.add(a);
             }
+
         } catch (Exception e) {
             e.printStackTrace();
         }
+
         return list;
     }
 
-    // delete artefacts
+    //  DELETE
     public void deleteArtefact(int id) {
         try {
-
             Connection con = DBConnection.getConnection();
 
             String sql = "DELETE FROM artefact WHERE artefact_id = ?";
 
             PreparedStatement ps = con.prepareStatement(sql);
             ps.setInt(1, id);
+
             ps.executeUpdate();
             System.out.println("Artefact deleted");
 
@@ -82,11 +91,9 @@ public class ArtefactDAO {
         }
     }
 
-    // update artefacts
+    //  UPDATE
     public void updateArtefact(Artefact artefact) {
-
         try {
-
             Connection con = DBConnection.getConnection();
 
             String sql = "UPDATE artefact SET name=?, material=?, description=?, discovered_year=?, image_path=?, category_id=?, period_id=?, region_id=? WHERE artefact_id=?";
@@ -104,13 +111,74 @@ public class ArtefactDAO {
             ps.setInt(9, artefact.getArtefactId());
 
             int rows = ps.executeUpdate();
-            if(rows > 0) 
+
+            if (rows > 0)
                 System.out.println("Artefact updated");
-            else 
+            else
                 System.out.println("Artefact Not Found");
 
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    // GET CATEGORIES (for dropdown)
+    public Map<String, Integer> getCategories() {
+        Map<String, Integer> map = new HashMap<>();
+        String sql = "SELECT category_id, category_name FROM category";
+
+        try (Connection conn = DBConnection.getConnection();
+             Statement st = conn.createStatement();
+             ResultSet rs = st.executeQuery(sql)) {
+
+            while (rs.next()) {
+                map.put(rs.getString("category_name"), rs.getInt("category_id"));
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return map;
+    }
+
+    // 🔥 GET PERIODS (for dropdown)
+    public Map<String, Integer> getPeriods() {
+        Map<String, Integer> map = new HashMap<>();
+        String sql = "SELECT period_id, period_name FROM period";
+
+        try (Connection conn = DBConnection.getConnection();
+             Statement st = conn.createStatement();
+             ResultSet rs = st.executeQuery(sql)) {
+
+            while (rs.next()) {
+                map.put(rs.getString("period_name"), rs.getInt("period_id"));
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return map;
+    }
+
+    //  GET REGIONS (for dropdown)
+    public Map<String, Integer> getRegions() {
+        Map<String, Integer> map = new HashMap<>();
+        String sql = "SELECT region_id, region_name FROM region";
+
+        try (Connection conn = DBConnection.getConnection();
+             Statement st = conn.createStatement();
+             ResultSet rs = st.executeQuery(sql)) {
+
+            while (rs.next()) {
+                map.put(rs.getString("region_name"), rs.getInt("region_id"));
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return map;
     }
 }
