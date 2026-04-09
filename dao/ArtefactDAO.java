@@ -83,11 +83,14 @@ public class ArtefactDAO {
             PreparedStatement ps = con.prepareStatement(sql);
             ps.setInt(1, id);
 
-            ps.executeUpdate();
-            System.out.println("Artefact deleted");
+            int rows = ps.executeUpdate();
+            if(rows > 0)
+                System.out.println("Artefact deleted");
+            if(rows == 0)
+                throw new RuntimeException("Artefact Not Found");
 
         } catch (Exception e) {
-            e.printStackTrace();
+            throw new RuntimeException(e.getMessage());
         }
     }
 
@@ -142,7 +145,7 @@ public class ArtefactDAO {
         return map;
     }
 
-    // 🔥 GET PERIODS (for dropdown)
+    //  GET PERIODS (for dropdown)
     public Map<String, Integer> getPeriods() {
         Map<String, Integer> map = new HashMap<>();
         String sql = "SELECT period_id, period_name FROM period";
@@ -181,4 +184,37 @@ public class ArtefactDAO {
 
         return map;
     }
+
+    public Artefact getArtefactById(int id) {
+        Artefact a = null;
+    
+        try {
+            Connection con = DBConnection.getConnection();
+            String sql = "SELECT * FROM artefact WHERE artefact_id = ?";
+            PreparedStatement ps = con.prepareStatement(sql);
+            ps.setInt(1, id);
+    
+            ResultSet rs = ps.executeQuery();
+    
+            if (rs.next()) {
+                a = new Artefact(
+                    rs.getInt("artefact_id"),
+                    rs.getString("name"),
+                    rs.getString("material"),
+                    rs.getString("description"),
+                    rs.getString("image_path"),
+                    rs.getInt("category_id"),
+                    rs.getInt("discovered_year"),
+                    rs.getInt("period_id"),
+                    rs.getInt("region_id")
+                );
+            }
+    
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    
+        return a;
+    }
+
 }

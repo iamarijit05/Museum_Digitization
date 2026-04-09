@@ -31,4 +31,22 @@ public class ArtefactService {
         }
         dao.deleteArtefact(id);
     }
+
+    public void updateArtefact(Artefact a) {
+
+        if (Session.getRole() != UserRole.ADMIN) {
+            throw new RuntimeException("Only admin can update artefacts");
+        }
+    
+        if (a.getArtefactId() == 0) {
+            throw new RuntimeException("Invalid artefact ID");
+        }
+    
+        if (a.getName() == null || a.getName().trim().isEmpty()) {
+            throw new RuntimeException("Name cannot be empty");
+        }
+    
+        dao.updateArtefact(a);
+    }
+
 }
