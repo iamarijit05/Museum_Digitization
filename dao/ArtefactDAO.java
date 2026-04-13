@@ -15,6 +15,7 @@ import db.DBConnection;
 public class ArtefactDAO {
 
     // INSERT
+    //axvg
     public void addArtefact(Artefact artefact) {
         try {
             Connection con = DBConnection.getConnection();
