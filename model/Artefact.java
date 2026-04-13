@@ -10,7 +10,9 @@ public class Artefact {
     private int discovered_year;
     private int period_id;
     private int region_id;
-
+    private String categoryName;
+    private String periodName;
+    private String regionName;
     public Artefact() {
 
     }
@@ -110,4 +112,12 @@ public class Artefact {
     public void setRegion_id(int region_id) {
         this.region_id = region_id;
     }
+    public String getCategoryName() { return categoryName; }
+    public void setCategoryName(String categoryName) { this.categoryName = categoryName; }
+
+    public String getPeriodName() { return periodName; }
+    public void setPeriodName(String periodName) { this.periodName = periodName; }
+
+    public String getRegionName() { return regionName; }
+    public void setRegionName(String regionName) { this.regionName = regionName; }
 }

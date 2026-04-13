@@ -190,8 +190,15 @@ public class ArtefactDAO {
     
         try {
             Connection con = DBConnection.getConnection();
-            String sql = "SELECT * FROM artefact WHERE artefact_id = ?";
-            PreparedStatement ps = con.prepareStatement(sql);
+            String sql = "SELECT a.*, " +
+            "c.category_name, " +
+            "p.period_name, " +
+            "r.region_name " +
+            "FROM artefact a " +
+            "JOIN category c ON a.category_id = c.category_id " +
+            "JOIN period p ON a.period_id = p.period_id " +
+            "JOIN region r ON a.region_id = r.region_id " +
+            "WHERE a.artefact_id = ?";            PreparedStatement ps = con.prepareStatement(sql);
             ps.setInt(1, id);
     
             ResultSet rs = ps.executeQuery();
@@ -208,6 +215,11 @@ public class ArtefactDAO {
                     rs.getInt("period_id"),
                     rs.getInt("region_id")
                 );
+            
+                // NEW
+                a.setCategoryName(rs.getString("category_name"));
+                a.setPeriodName(rs.getString("period_name"));
+                a.setRegionName(rs.getString("region_name"));
             }
     
         } catch (Exception e) {
@@ -217,4 +229,41 @@ public class ArtefactDAO {
         return a;
     }
 
+    //method for grids in public page
+    public List<Artefact> getArtefactsByCategory(int categoryId) {
+
+        List<Artefact> list = new ArrayList<>();
+    
+        try {
+            Connection con = DBConnection.getConnection();
+    
+            String sql = "SELECT * FROM artefact WHERE category_id = ?";
+    
+            PreparedStatement ps = con.prepareStatement(sql);
+            ps.setInt(1, categoryId);
+    
+            ResultSet rs = ps.executeQuery();
+    
+            while (rs.next()) {
+                Artefact a = new Artefact(
+                        rs.getInt("artefact_id"),
+                        rs.getString("name"),
+                        rs.getString("material"),
+                        rs.getString("description"),
+                        rs.getString("image_path"),
+                        rs.getInt("category_id"),
+                        rs.getInt("discovered_year"),
+                        rs.getInt("period_id"),
+                        rs.getInt("region_id")
+                );
+    
+                list.add(a);
+            }
+    
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    
+        return list;
+    }
 }
