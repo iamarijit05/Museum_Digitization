@@ -25,7 +25,7 @@ import service.ArtefactService;
  */
 public class UpdateArtefactForm extends JFrame {
 
-    // ── Form fields ───────────────────────────────────────────────
+    //  Form fields 
     private JTextField idField, nameField, materialField;
     private JTextArea  descriptionArea;
     private JLabel     imageLabel;
@@ -49,7 +49,7 @@ public class UpdateArtefactForm extends JFrame {
     static final Color ACCENT     = new Color(246, 173, 85);   // amber — "Update" action
     static final Color FIELD_BG   = new Color(20, 24, 40);
 
-    // ── Constructor ───────────────────────────────────────────────
+    //  Constructor 
 
     public UpdateArtefactForm() {
 
@@ -59,7 +59,7 @@ public class UpdateArtefactForm extends JFrame {
         setLayout(new BorderLayout());
         getContentPane().setBackground(BG);
 
-        // ── Header ───────────────────────────────────────────────
+        //  Header
         JPanel headerPanel = new JPanel(new BorderLayout()) {
             @Override protected void paintComponent(Graphics g) {
                 Graphics2D g2 = (Graphics2D) g.create();
@@ -106,7 +106,7 @@ public class UpdateArtefactForm extends JFrame {
         headerPanel.add(iconAndTitle, BorderLayout.WEST);
         add(headerPanel, BorderLayout.NORTH);
 
-        // ── Form panel ───────────────────────────────────────────
+        //  Form panel
         JPanel panel = new JPanel(new GridBagLayout());
         panel.setBackground(BG);
         panel.setBorder(BorderFactory.createEmptyBorder(20, 30, 10, 30));
@@ -115,7 +115,7 @@ public class UpdateArtefactForm extends JFrame {
         gbc.insets = new Insets(8, 8, 8, 8);
         gbc.fill   = GridBagConstraints.HORIZONTAL;
 
-        // ── ID + Load ─────────────────────────────────────────────
+        //  ID + Load 
         gbc.gridx = 0; gbc.gridy = 0; gbc.gridwidth = 1;
         panel.add(makeLabel("Artefact ID:"), gbc);
 
@@ -128,21 +128,21 @@ public class UpdateArtefactForm extends JFrame {
         loadBtn.setPreferredSize(new Dimension(80, 32));
         panel.add(loadBtn, gbc);
 
-        // ── Name ──────────────────────────────────────────────────
+        // Name 
         gbc.gridx = 0; gbc.gridy++; gbc.gridwidth = 1;
         panel.add(makeLabel("Name:"), gbc);
         gbc.gridx = 1; gbc.gridwidth = 2;
         nameField = makeTextField("Artefact name");
         panel.add(nameField, gbc);
 
-        // ── Material ──────────────────────────────────────────────
+        //  Material
         gbc.gridx = 0; gbc.gridy++; gbc.gridwidth = 1;
         panel.add(makeLabel("Material:"), gbc);
         gbc.gridx = 1; gbc.gridwidth = 2;
         materialField = makeTextField("e.g. Bronze, Clay, Marble…");
         panel.add(materialField, gbc);
 
-        // ── Description ───────────────────────────────────────────
+        //  Description 
         gbc.gridx = 0; gbc.gridy++; gbc.gridwidth = 1;
         gbc.anchor = GridBagConstraints.NORTHWEST;
         panel.add(makeLabel("Description:"), gbc);
@@ -162,7 +162,7 @@ public class UpdateArtefactForm extends JFrame {
         styleScrollBar(descScroll.getVerticalScrollBar());
         panel.add(descScroll, gbc);
 
-        // ── Category ──────────────────────────────────────────────
+        //  Category 
         gbc.gridx = 0; gbc.gridy++; gbc.gridwidth = 1;
         panel.add(makeLabel("Category:"), gbc);
         gbc.gridx = 1; gbc.gridwidth = 2;
@@ -183,7 +183,7 @@ public class UpdateArtefactForm extends JFrame {
         regionBox = makeComboBox();
         panel.add(regionBox, gbc);
 
-        // ── Image ─────────────────────────────────────────────────
+        //  Image
         gbc.gridx = 0; gbc.gridy++; gbc.gridwidth = 1;
         panel.add(makeLabel("Image:"), gbc);
 
@@ -198,7 +198,7 @@ public class UpdateArtefactForm extends JFrame {
         imageLabel.setForeground(TEXT_MUTED);
         panel.add(imageLabel, gbc);
 
-        // ── Update button ─────────────────────────────────────────
+        //  Update button
         gbc.gridx = 0; gbc.gridy++;
         gbc.gridwidth = 3;
         gbc.anchor = GridBagConstraints.CENTER;
@@ -209,14 +209,14 @@ public class UpdateArtefactForm extends JFrame {
         updateBtn.setPreferredSize(new Dimension(200, 42));
         panel.add(updateBtn, gbc);
 
-        // ── Scroll wrapper ────────────────────────────────────────
+        //  Scroll wrapper
         JScrollPane scrollPane = new JScrollPane(panel);
         scrollPane.setBorder(null);
         scrollPane.getViewport().setBackground(BG);
         styleScrollBar(scrollPane.getVerticalScrollBar());
         add(scrollPane, BorderLayout.CENTER);
 
-        // ── Footer ────────────────────────────────────────────────
+        // Footer 
         JPanel footer = new JPanel(new FlowLayout(FlowLayout.RIGHT));
         footer.setBackground(new Color(20, 24, 40));
         footer.setBorder(BorderFactory.createMatteBorder(1, 0, 0, 0, BORDER_CLR));
@@ -229,7 +229,7 @@ public class UpdateArtefactForm extends JFrame {
 
         loadDropdownData();
 
-        // ── Action listeners (logic untouched) ───────────────────
+        //  Action listeners (logic untouched) 
         loadBtn.addActionListener(e -> loadArtefact());
         imageBtn.addActionListener(e -> selectImage());
         updateBtn.addActionListener(e -> updateArtefact());
@@ -238,7 +238,7 @@ public class UpdateArtefactForm extends JFrame {
         setVisible(true);
     }
 
-    // ── UI factory helpers ────────────────────────────────────────
+    // UI factory helpers 
 
     /**
      * Creates a muted label styled for the dark theme.
@@ -421,7 +421,7 @@ public class UpdateArtefactForm extends JFrame {
         });
     }
 
-    // ── Original business logic — untouched ──────────────────────
+    //  Original business logic — untouched 
 
     /** Populates all three combo boxes from the database. */
     private void loadDropdownData() {

@@ -31,7 +31,7 @@ public class AddArtefactForm extends JFrame {
     private Font fieldFont  = new Font("Segoe UI", Font.PLAIN, 13);
     private Font buttonFont = new Font("Segoe UI", Font.BOLD, 13);
 
-    // ── Palette (mirrors Dashboard) ──────────────────────────────
+    // Palette (mirrors Dashboard) 
     private static final Color BG          = new Color(15, 17, 26);
     private static final Color CARD_BG     = new Color(24, 28, 44);
     private static final Color BORDER_CLR  = new Color(40, 46, 70);
@@ -48,7 +48,7 @@ public class AddArtefactForm extends JFrame {
         setLayout(new BorderLayout());
         getContentPane().setBackground(BG);
 
-        // ── Header ───────────────────────────────────────────────
+        // Header 
         JPanel headerPanel = new JPanel(new BorderLayout()) {
             @Override protected void paintComponent(Graphics g) {
                 Graphics2D g2 = (Graphics2D) g.create();
@@ -93,7 +93,7 @@ public class AddArtefactForm extends JFrame {
         headerPanel.add(iconAndTitle, BorderLayout.WEST);
         add(headerPanel, BorderLayout.NORTH);
 
-        // ── Form panel ───────────────────────────────────────────
+        //  Form panel 
         JPanel formPanel = new JPanel(new GridBagLayout());
         formPanel.setBackground(BG);
         formPanel.setBorder(BorderFactory.createEmptyBorder(20, 30, 10, 30));
@@ -191,14 +191,14 @@ public class AddArtefactForm extends JFrame {
 
         submitBtn.addActionListener(e -> addArtefact());
 
-        // ── Scroll wrapper ───────────────────────────────────────
+        //  Scroll wrapper
         JScrollPane scrollPane = new JScrollPane(formPanel);
         scrollPane.setBorder(null);
         scrollPane.getViewport().setBackground(BG);
         styleScrollBar(scrollPane.getVerticalScrollBar());
         add(scrollPane, BorderLayout.CENTER);
 
-        // ── Footer ───────────────────────────────────────────────
+        //  Footer
         JPanel footer = new JPanel(new FlowLayout(FlowLayout.RIGHT));
         footer.setBackground(new Color(20, 24, 40));
         footer.setBorder(BorderFactory.createMatteBorder(1, 0, 0, 0, BORDER_CLR));
@@ -215,7 +215,7 @@ public class AddArtefactForm extends JFrame {
         setVisible(true);
     }
 
-    // ── UI factory helpers ────────────────────────────────────────
+    //  UI factory helpers 
 
     private JLabel makeLabel(String text) {
         JLabel lbl = new JLabel(text);
@@ -256,13 +256,13 @@ public class AddArtefactForm extends JFrame {
     
         box.setFont(fieldFont);
     
-        // 🔥 Closed (selected item) text color
+        // Closed (selected item) text color
         box.setForeground(TEXT_MAIN);
     
         box.setBackground(FIELD_BG);
         box.setBorder(BorderFactory.createLineBorder(BORDER_CLR));
     
-        // 🔥 Custom renderer for dropdown items
+        // Custom renderer for dropdown items
         box.setRenderer(new DefaultListCellRenderer() {
             @Override
             public Component getListCellRendererComponent(JList<?> list, Object value,
@@ -273,7 +273,7 @@ public class AddArtefactForm extends JFrame {
                 // Background
                 setBackground(isSelected ? new Color(40, 50, 80) : FIELD_BG);
     
-                // 🔥 TEXT COLOR CONTROL
+                //TEXT COLOR CONTROL
                 if (isSelected) {
                     setForeground(Color.WHITE);      // selected item text
                 } else {

@@ -29,7 +29,7 @@ public class ArtefactListView extends JFrame {
 
         add(new JScrollPane(table), BorderLayout.CENTER);
 
-        loadData();  // 🔥 load data from DB
+        loadData();  //load data from DB
 
         setVisible(true);
     }

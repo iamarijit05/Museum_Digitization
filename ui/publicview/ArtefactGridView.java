@@ -12,7 +12,7 @@ import model.Artefact;
 
 public class ArtefactGridView extends JFrame {
 
-    // ── Obsidian & Gold Palette (matches PublicView / ArtefactDetailView) ────
+    // Obsidian & Gold Palette (matches PublicView / ArtefactDetailView)
     private static final Color BG_DEEP     = new Color(0x0D0D0D);
     private static final Color BG_PANEL    = new Color(0x141414);
     private static final Color BG_CARD     = new Color(0x1A1A1A);
@@ -31,7 +31,7 @@ public class ArtefactGridView extends JFrame {
         setLocationRelativeTo(null);
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 
-        // ── Root ──────────────────────────────────────────────────────────
+        //  Root 
         JPanel root = new JPanel(new BorderLayout()) {
             @Override protected void paintComponent(Graphics g) {
                 Graphics2D g2 = (Graphics2D) g.create();
@@ -55,7 +55,7 @@ public class ArtefactGridView extends JFrame {
 
         root.add(buildHeader(), BorderLayout.NORTH);
 
-        // ── DATA ──────────────────────────────────────────────────────────
+        // DATA
         ArtefactDAO dao = new ArtefactDAO();
         List<Artefact> list = dao.getArtefactsByCategory(categoryId);
 
@@ -70,7 +70,7 @@ public class ArtefactGridView extends JFrame {
         setVisible(true);
     }
 
-    // ── HEADER ───────────────────────────────────────────────────────────────
+    // HEADER
     private JPanel buildHeader() {
         JPanel header = new JPanel() {
             @Override protected void paintComponent(Graphics g) {
@@ -135,7 +135,7 @@ public class ArtefactGridView extends JFrame {
         return header;
     }
 
-    // ── GRID ─────────────────────────────────────────────────────────────────
+    // GRID 
     private JScrollPane buildGrid(List<Artefact> list) {
         JPanel grid = new JPanel(new GridLayout(0, 3, 18, 18)) {
             @Override protected void paintComponent(Graphics g) {
@@ -179,7 +179,7 @@ public class ArtefactGridView extends JFrame {
         return scroll;
     }
 
-    // ── ARTEFACT CARD ────────────────────────────────────────────────────────
+    //  ARTEFACT CARD 
     private JPanel createArtefactCard(Artefact a) {
         JPanel card = new JPanel(new BorderLayout()) {
             float hover = 0f;
@@ -324,7 +324,7 @@ public class ArtefactGridView extends JFrame {
         return card;
     }
 
-    // ── EMPTY STATE ──────────────────────────────────────────────────────────
+    // EMPTY STATE 
     private JPanel buildEmptyState() {
         JPanel p = new JPanel(new GridBagLayout());
         p.setOpaque(false);
@@ -363,7 +363,7 @@ public class ArtefactGridView extends JFrame {
         return p;
     }
 
-    // ── FOOTER ────────────────────────────────────────────────────────────────
+    // FOOTER 
     private JPanel buildFooter(int count) {
         JPanel footer = new JPanel(new FlowLayout(FlowLayout.CENTER, 0, 7)) {
             @Override protected void paintComponent(Graphics g) {
@@ -393,7 +393,7 @@ public class ArtefactGridView extends JFrame {
         return footer;
     }
 
-    // ── ORNAMENT ─────────────────────────────────────────────────────────────
+    // ORNAMENT
     private JPanel buildOrnament() {
         JPanel p = new JPanel() {
             @Override protected void paintComponent(Graphics g) {
@@ -420,7 +420,7 @@ public class ArtefactGridView extends JFrame {
         return p;
     }
 
-    // ── Util ──────────────────────────────────────────────────────────────────
+    //  Util 
     private static Color lerp(Color a, Color b, float t) {
         t = Math.max(0f, Math.min(1f, t));
         return new Color(

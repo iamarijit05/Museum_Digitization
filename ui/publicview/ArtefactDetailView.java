@@ -31,7 +31,7 @@ public class ArtefactDetailView extends JFrame {
         setLocationRelativeTo(null);
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 
-        // ── Root ──────────────────────────────────────────────────────────
+        // Root 
         JPanel root = new JPanel(new BorderLayout()) {
             @Override protected void paintComponent(Graphics g) {
                 Graphics2D g2 = (Graphics2D) g.create();
@@ -67,19 +67,19 @@ public class ArtefactDetailView extends JFrame {
             return;
         }
 
-        // ── HEADER ────────────────────────────────────────────────────────
+        //HEADER
         root.add(buildHeader(a.getName()), BorderLayout.NORTH);
 
-        // ── CONTENT ───────────────────────────────────────────────────────
+        // CONTENT 
         root.add(buildContent(a), BorderLayout.CENTER);
 
-        // ── FOOTER ────────────────────────────────────────────────────────
+        // FOOTER 
         root.add(buildFooter(), BorderLayout.SOUTH);
 
         setVisible(true);
     }
 
-    // ── HEADER ───────────────────────────────────────────────────────────────
+    // HEADER 
     private JPanel buildHeader(String name) {
         JPanel header = new JPanel() {
             @Override protected void paintComponent(Graphics g) {
@@ -141,13 +141,13 @@ public class ArtefactDetailView extends JFrame {
         return header;
     }
 
-    // ── CONTENT ──────────────────────────────────────────────────────────────
+    //CONTENT 
     private JPanel buildContent(Artefact a) {
         JPanel wrap = new JPanel(new BorderLayout());
         wrap.setOpaque(false);
         wrap.setBorder(BorderFactory.createEmptyBorder(16, 36, 10, 36));
 
-        // ── Inner card ────────────────────────────────────────────────────
+        // Inner card 
         JPanel card = new JPanel(new BorderLayout(0, 0)) {
             @Override protected void paintComponent(Graphics g) {
                 Graphics2D g2 = (Graphics2D) g.create();
@@ -175,7 +175,7 @@ public class ArtefactDetailView extends JFrame {
         };
         card.setOpaque(false);
 
-        // ── LEFT: Image ───────────────────────────────────────────────────
+        //LEFT: Image
         JPanel imagePanel = new JPanel() {
             @Override protected void paintComponent(Graphics g) {
                 Graphics2D g2 = (Graphics2D) g.create();
@@ -217,7 +217,7 @@ public class ArtefactDetailView extends JFrame {
         imgLabel.setOpaque(false);
         imagePanel.add(imgLabel);
 
-        // ── RIGHT: Details ────────────────────────────────────────────────
+        //  RIGHT: Details
         JPanel detailsPanel = new JPanel();
         detailsPanel.setLayout(new BoxLayout(detailsPanel, BoxLayout.Y_AXIS));
         detailsPanel.setOpaque(false);
@@ -236,7 +236,7 @@ public class ArtefactDetailView extends JFrame {
         return wrap;
     }
 
-    // ── DETAIL ROW ────────────────────────────────────────────────────────────
+    // DETAIL ROW 
     private void addDetailRow(JPanel parent, String label, String value) {
         JPanel row = new JPanel() {
             @Override protected void paintComponent(Graphics g) {
@@ -289,7 +289,7 @@ public class ArtefactDetailView extends JFrame {
         parent.add(Box.createVerticalStrut(2));
     }
 
-    // ── FOOTER ────────────────────────────────────────────────────────────────
+    // FOOTER 
     private JPanel buildFooter() {
         JPanel footer = new JPanel(new FlowLayout(FlowLayout.CENTER, 0, 8)) {
             @Override protected void paintComponent(Graphics g) {
@@ -364,7 +364,7 @@ public class ArtefactDetailView extends JFrame {
         return footer;
     }
 
-    // ── Ornament (shared style) ───────────────────────────────────────────────
+    //  Ornament (shared style) 
     private JPanel buildOrnament() {
         JPanel p = new JPanel() {
             @Override protected void paintComponent(Graphics g) {
@@ -391,7 +391,7 @@ public class ArtefactDetailView extends JFrame {
         return p;
     }
 
-    // ── Util ──────────────────────────────────────────────────────────────────
+    // Util 
     private static Color lerp(Color a, Color b, float t) {
         t = Math.max(0f, Math.min(1f, t));
         return new Color(

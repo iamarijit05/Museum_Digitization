@@ -26,7 +26,7 @@ public class Dashboard extends JFrame {
         Color bgColor = new Color(15, 17, 26);
         getContentPane().setBackground(bgColor);
 
-        // ── Header panel ──────────────────────────────────────────
+        //  Header panel
         JPanel headerPanel = new JPanel(new BorderLayout()) {
             @Override
             protected void paintComponent(Graphics g) {
@@ -76,7 +76,7 @@ public class Dashboard extends JFrame {
         headerPanel.add(iconAndTitle, BorderLayout.WEST);
         add(headerPanel, BorderLayout.NORTH);
 
-        // ── Button panel ──────────────────────────────────────────
+        // Button panel 
         JPanel panel = new JPanel(new GridLayout(2, 2, 20, 20));
         panel.setBorder(BorderFactory.createEmptyBorder(30, 40, 30, 40));
         panel.setBackground(bgColor);
@@ -96,7 +96,7 @@ public class Dashboard extends JFrame {
 
         add(panel, BorderLayout.CENTER);
 
-        // ── Footer ────────────────────────────────────────────────
+        // Footer 
         JPanel footer = new JPanel(new FlowLayout(FlowLayout.RIGHT));
         footer.setBackground(new Color(20, 24, 40));
         footer.setBorder(BorderFactory.createMatteBorder(1, 0, 0, 0, new Color(40, 46, 70)));
@@ -107,7 +107,7 @@ public class Dashboard extends JFrame {
         footer.add(footerLabel);
         add(footer, BorderLayout.SOUTH);
 
-        // ── Actions ───────────────────────────────────────────────
+        //Actions 
         addBtn.addActionListener(e -> new AddArtefactForm());
         viewBtn.addActionListener(e -> new PublicView());
         updateBtn.addActionListener(e -> new UpdateArtefactForm());

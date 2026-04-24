@@ -7,7 +7,7 @@ public class MainApp {
 
     public static void main(String[] args) {
 
-        // Always run Swing UI on Event Dispatch Thread
+        // run Swing UI on Event Dispatch Thread
         SwingUtilities.invokeLater(() -> {
             //new PublicView();
             new LoginPage();

@@ -67,7 +67,7 @@ public class DeleteArtefactForm extends JFrame {
 
         panel.add(deleteBtn, gbc);
 
-        // ✅ STATUS LABEL (FIXED)
+        // STATUS LABEL 
         gbc.gridx = 0; gbc.gridy++;
         gbc.gridwidth = 2;
 
